@@ -3,12 +3,7 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-def simple_get(url):
-    """
-    Attempts to get the content at `url` by making an HTTP GET request.
-    If the content-type of response is some kind of HTML/XML, return the
-    text content, otherwise return None.
-    """
+def simple_get(url): 
     try:
         with closing(get(url, stream=True)) as resp:
             if is_good_response(resp):
