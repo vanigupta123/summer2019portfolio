@@ -1,0 +1,95 @@
+1. digitSum
+public static int digitSum(int n) {
+		if(n/10 == 0) {
+			return n%10;
+		}
+		return (n%10) + digitSum(n/10);
+	}
+
+2. canMakeSum
+public static boolean canMakeSum(int setOfNums[], int targetSum) {
+		if(setOfNums.length == 0) {
+			return false;
+		}
+		for(int j = 1; j < setOfNums.length; j++) {
+			if(setOfNums[j] == (targetSum-setOfNums[0])) {
+				return true;
+			}
+		}
+		int newArray[] = new int[setOfNums.length - 1];
+		for(int i = 1; i < setOfNums.length; i++) {
+			newArray[i-1] = setOfNums[i];
+		}
+		return canMakeSum(newArray, targetSum);
+	}
+
+3. isBalanced
+public static boolean isBalanced(String str) {
+		if(str.contains("()")) {
+			return isBalanced(str.replace("()", ""));
+		} else if (str.contains("[]")) {
+			return isBalanced(str.replace("[]", ""));
+		} else if (str.contains("{}")) {
+			return isBalanced(str.replace("{}", ""));
+		}
+		if(str.length() == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+4. substrings
+public static void substrings(String str) {
+		substringHelper(str, "");
+	}
+	
+	public static void substringHelper(String str, String soFar) {
+		if(str.length() > 0) {
+			System.out.print(soFar + str.charAt(0) + ", ");
+			substringHelper(str.substring(1), soFar+str.charAt(0));
+			substringHelper(str.substring(1), soFar);
+		}
+	}
+
+5. printInBinary
+public static void printInBinary(int number) {
+		if(number > 0) {
+			printInBinary(number/2);
+			System.out.print(number%2);
+		}
+	}
+
+6. extended subsets
+public static boolean printSubsetSum(int nums[], int targetSum) {
+		return subsetHelper(nums, targetSum, 0);
+
+	}
+	public static boolean subsetHelper(int nums[], int targetSum, int i) {
+		if(i == nums.length) {
+			return false;
+		}
+		for(int j = i; j < nums.length-1; j++) {
+			if(nums[j] == (targetSum-nums[i])) {
+				return true;
+			}
+		}
+		return subsetHelper(nums, targetSum, ++i);
+	}
+	
+	public static int subsetHelper2(int nums[], int targetSum, int i) {
+		if(i == nums.length) {
+			return 0;
+		}
+		for(int j = i; j < nums.length-1; j++) {
+			if(nums[j] == (targetSum-nums[i])) {
+				return 1 + subsetHelper2(nums, targetSum, ++i);
+			}
+		}
+		return 0 + subsetHelper2(nums, targetSum, ++i);
+	}
+	
+	public static int countSubsetSumSolutions(int nums[], int targetSum) {
+		return subsetHelper2(nums, targetSum, 0);
+	} 
+}
